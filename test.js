@@ -3,8 +3,7 @@ var fs = require('fs');
 var month = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
 
 
-function getFormattedDate(today) 
-{
+function getFormattedDate(today) {
     var week = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
     var day  = week[today.getDay()];
     var dd   = today.getDate();
@@ -31,6 +30,46 @@ var cssCms = preDirTag + "CSS CMS Shift Notes/" + month[datetime.getMonth()];
 
 
 var dirs = [starElectronicsFolder, icblFolder, thirdEyeFolder, cssCms];
+
+function createFolder(dirname){
+	try{
+
+		if(!fs.existsSync(dirname)) {
+			fs.mkdirSync(dirname);
+		}
+		console.log("Success");
+	}
+
+	catch(err) {
+		if(err.code == 'EEXIST') {
+			console.log("File already exists");
+		}
+
+		else {
+			console.log(err);
+		}
+	}
+}
+
+function createFolders(dirnames){
+		dirnames.forEach(function(dir) {
+			if(!fs.existsSync(dir)) {
+				fs.mkdirSync(dir);
+			}
+		});
+		console.log("Success");
+	}
+
+	catch(err) {
+		if(err.code == 'EEXIST') {
+			console.log("Error");
+		}
+
+		else {
+			console.log(err);
+		}
+	}
+}
 
 function createMonthFolder(){
 	starElectronicsFolder += month[datetime.getMonth()];
