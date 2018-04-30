@@ -85,7 +85,7 @@ function getDirectories(path) {
   });
 }
 
-
+var item;  //Used to get previous folder name since function findPrevFolder is returning an undefined value
 function findPrevFolder(dirname){
 
 	var list = getDirectories(dirname); 
@@ -97,12 +97,11 @@ function findPrevFolder(dirname){
 
 
 		if( temp != -1 ){
-			console.log(listitem);
-			return listitem;
+			item = listitem;
 		}
 	});
 
 }
 
 var e = findPrevFolder('C:/Users/Public/Star Electronics/' + month[datetime.getMonth()] + '/');
-console.log(e);
+console.log(item);
