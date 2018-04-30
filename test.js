@@ -23,15 +23,17 @@ var datetime = new Date();
 var stringDate = getFormattedDate(datetime);
 
 var preDirTag = "C:/Users/PUBLIC/"
-var starElectronicsFolder = preDirTag + "Star Electronics/" + month[datetime.getMonth()];
-var icblFolder = preDirTag + "ICBL Shift Notes/" + month[datetime.getMonth()];
-var thirdEyeFolder = preDirTag + "Third Eye Security Shift Notes/" + month[datetime.getMonth()];
-var cssCms = preDirTag + "CSS CMS Shift Notes/" + month[datetime.getMonth()];
+var starElectronicsFolder = preDirTag + "Star Electronics/"
+var icblFolder = preDirTag + "ICBL Shift Notes/";
+var thirdEyeFolder = preDirTag + "Third Eye Security Shift Notes/";
+var cssCms = preDirTag + "CSS CMS Shift Notes/";
 
 
 var dirs = [starElectronicsFolder, icblFolder, thirdEyeFolder, cssCms];
 
+//Creates a single folder using string path directory name
 function createFolder(dirname){
+
 	try{
 
 		if(!fs.existsSync(dirname)) {
@@ -51,68 +53,27 @@ function createFolder(dirname){
 	}
 }
 
+//creates multiple folders using an array
 function createFolders(dirnames){
-		dirnames.forEach(function(dir) {
-			if(!fs.existsSync(dir)) {
-				fs.mkdirSync(dir);
-			}
-		});
-		console.log("Success");
-	}
 
-	catch(err) {
-		if(err.code == 'EEXIST') {
-			console.log("Error");
+	dirnames.forEach(function(dir) {
+		if(!fs.existsSync(dir)) {
+			fs.mkdirSync(dir);
 		}
-
-		else {
-			console.log(err);
-		}
-	}
+	});
 }
 
-function createMonthFolder(){
-	starElectronicsFolder += month[datetime.getMonth()];
-	icblFolder = preDirTag += month[datetime.getMonth()];
-	thirdEyeFolder = preDirTag += month[datetime.getMonth()];
-	cssCms += month[datetime.getMonth()];
+//creates multiple folder with the month name in multiple specified folders
+function createMonthFolders(dirnames){
+
+
+	dirnames.forEach(function(dir) {
+		dir += month[datetime.getMonth()];
+		createFolder(dir);
+	});
 	
-	try{
-	dirs.forEach(function(dir) {
-		if(!fs.existsSync(dir)) {
-			fs.mkdirSync(dir);
-		}
-	});
-	console.log("Success");
-}
-
-catch(err) {
-	if(err.code == 'EEXIST') {
-		console.log("Error");
-	}
-
-	else {
-		console.log(err);
-	}
-}
 }
 
 
-try{
-	dirs.forEach(function(dir) {
-		if(!fs.existsSync(dir)) {
-			fs.mkdirSync(dir);
-		}
-	});
-	console.log("Success");
-}
-
-catch(err) {
-	if(err.code == 'EEXIST') {
-		console.log("Error");
-	}
-
-	else {
-		console.log(err);
-	}
-}
+//createFolders(dirs);
+createMonthFolders(dirs);
