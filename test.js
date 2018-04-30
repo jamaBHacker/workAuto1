@@ -74,6 +74,35 @@ function createMonthFolders(dirnames){
 	
 }
 
+function copyFiles(sourceFile, targetFile){
 
-//createFolders(dirs);
-createMonthFolders(dirs);
+	fs.writeFileSync(targetFile, fs.readFileSync(sourceFile));
+}
+
+function getDirectories(path) {
+  return fs.readdirSync(path).filter(function (file) {
+    return fs.statSync(path+'/'+file).isDirectory();
+  });
+}
+
+
+function findPrevFolder(dirname){
+
+	var list = getDirectories(dirname); 
+
+
+	list.forEach(function(listitem) {
+		var prev = datetime.getDate() - 1;
+		var temp = listitem.search( month[datetime.getMonth()] + " " + prev );
+
+
+		if( temp != -1 ){
+			console.log(listitem);
+			return listitem;
+		}
+	});
+
+}
+
+var e = findPrevFolder('C:/Users/Public/Star Electronics/' + month[datetime.getMonth()] + '/');
+console.log(e);
