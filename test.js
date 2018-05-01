@@ -74,65 +74,54 @@ function createMonthFolders(dirnames){
 	
 }
 
+function createDayFolders(dirnames) {
+	dirnames.forEach(function(dir) {
+		dir += month[datetime.getMonth()] + "/" + month[datetime.getMonth()] + " " + datetime.getDate();
+		createFolder(dir);
+	});
+}
+
 function copyFile(sourceFile, targetFile){
 
 	fs.writeFileSync(targetFile, fs.readFileSync(sourceFile));
 }
 
+//list all directories in a a directory
 function getDirectories(path) {
   return fs.readdirSync(path).filter(function (file) {
     return fs.statSync(path+'/'+file).isDirectory();
   });
 }
 
-var item;  //Used to get previous folder name since function findPrevFolder is returning an undefined value
-function findPrevFolder(dirname){
-
-	var list = getDirectories(dirname); 
-
-
-	list.forEach(function(listitem) {
-		var prev = datetime.getDate() - 1;
-		var temp = listitem.search( month[datetime.getMonth()] + " " + prev );
-
-
-		if( temp != -1 ){
-			item = listitem;
-		}
-	});
-
-}
 
 function copyFiles(source, target) {
 
 	dirs.forEach(function(dir) {
-		var prev = findPrevFolder(dir + month[datetime.getMonth()] + '/');
 
-		copyFile( , dir + month[datetime.getMonth()] );
+		//copyFile( , dir + month[datetime.getMonth()] );
 	});	
 }
 
-
+//get hour of shift to calculate relevant shift number
 function getShiftNumber(){
 	var hour = datetime.getHours();
-	var shiftNUmber;
+	var shiftNumber;
 
 	if( (hour <= 7) && (hour > 23) ) {
 		shiftNUmber = 1;
 	}
 
-	if( (hour > 7) && (hour <= 15) ) {
-		shiftNUmber = 2;
+	else if( (hour > 7) && (hour <= 15) ) {
+		shiftNumber = 2;
 	}
 
-	if( (hour > 15) && (hour <= 23)) {
-		shiftNUmber = 3
+	else if( (hour > 15) && (hour <= 23)) {
+		shiftNumber = 3;
 	}
 
-	return shiftNUmber;
+	return shiftNumber;
 }
 
-
-var to = 'C:/'
-
-copyFiles(from, )
+createFolders(dirs);
+createMonthFolders(dirs);
+createDayFolders(dirs);
