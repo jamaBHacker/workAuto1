@@ -74,7 +74,7 @@ function createMonthFolders(dirnames){
 	
 }
 
-function copyFiles(sourceFile, targetFile){
+function copyFile(sourceFile, targetFile){
 
 	fs.writeFileSync(targetFile, fs.readFileSync(sourceFile));
 }
@@ -103,5 +103,36 @@ function findPrevFolder(dirname){
 
 }
 
-var e = findPrevFolder('C:/Users/Public/Star Electronics/' + month[datetime.getMonth()] + '/');
-console.log(item);
+function copyFiles(source, target) {
+
+	dirs.forEach(function(dir) {
+		var prev = findPrevFolder(dir + month[datetime.getMonth()] + '/');
+
+		copyFile( , dir + month[datetime.getMonth()] );
+	});	
+}
+
+
+function getShiftNumber(){
+	var hour = datetime.getHours();
+	var shiftNUmber;
+
+	if( (hour <= 7) && (hour > 23) ) {
+		shiftNUmber = 1;
+	}
+
+	if( (hour > 7) && (hour <= 15) ) {
+		shiftNUmber = 2;
+	}
+
+	if( (hour > 15) && (hour <= 23)) {
+		shiftNUmber = 3
+	}
+
+	return shiftNUmber;
+}
+
+
+var to = 'C:/'
+
+copyFiles(from, )
